@@ -25,19 +25,19 @@ public class VolunteerController {
 
     @PostMapping("/create")
     public ApiResponse<?> saveVolunteer(@Valid @RequestBody VolunteerDto volunteerDto){
-        VolunteerDto volunteer = volunteerService.saveVolunteer(volunteerDto);
-        return new ApiResponse<>(true, HttpStatus.CREATED, "Create successful", volunteer);
+        String jwt = volunteerService.saveVolunteer(volunteerDto);
+        return new ApiResponse<>(true, HttpStatus.CREATED, "Create successful", jwt);
     }
 
     @GetMapping("/base")
     public ApiResponse<?> getVolunteer(@Valid @RequestBody VolunteerDto volunteerDto) throws BadRequestException {
-        VolunteerDto volunteer = volunteerService.getUserByEmailAndPassword(volunteerDto);
+        String volunteer = volunteerService.getUserByEmailAndPassword(volunteerDto);
         return new ApiResponse<>(true, HttpStatus.OK, "Successful get volunteer by base way", volunteer);
     }
 
     @GetMapping("/email/{email}")
     public ApiResponse<?> getVolunteer(@PathVariable String email){
-        VolunteerDto volunteer = volunteerService.getUserByEmail(email);
+        String volunteer = volunteerService.getUserByEmail(email);
         return new ApiResponse<>(true, HttpStatus.OK, "Successful get volunteer by API", volunteer);
     }
 

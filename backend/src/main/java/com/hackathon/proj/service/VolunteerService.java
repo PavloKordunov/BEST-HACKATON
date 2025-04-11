@@ -5,7 +5,7 @@ import org.apache.coyote.BadRequestException;
 
 
 public interface VolunteerService {
-    VolunteerDto saveVolunteer(VolunteerDto volunteerDto);
-    VolunteerDto getUserByEmail(String email);
-    VolunteerDto getUserByEmailAndPassword(VolunteerDto volunteerDto) throws BadRequestException;
+    String saveVolunteer(VolunteerDto volunteerDto);
+    String getUserByEmail(String email);
+    String getUserByEmailAndPassword(VolunteerDto volunteerDto) throws BadRequestException;
 }

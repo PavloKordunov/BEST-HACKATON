@@ -3,45 +3,55 @@ package com.hackathon.proj.service.impl;
 import com.hackathon.proj.dto.VolunteerDto;
 import com.hackathon.proj.entity.Volunteer;
 import com.hackathon.proj.repository.VolunteerRepository;
+import com.hackathon.proj.service.JwtService;
 import com.hackathon.proj.service.VolunteerService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class VolunteerServiceImpl implements VolunteerService {
     private final VolunteerRepository volunteerRepository;
-
+    private final JwtService jwtService;
 
     @Override
-    public VolunteerDto saveVolunteer(VolunteerDto volunteerDto) {
+    public String saveVolunteer(VolunteerDto volunteerDto) {
+        log.info("Create volunteer in VolunteerService");
+
         Volunteer volunteer = getVolunteer(volunteerDto);
         Volunteer entity = volunteerRepository.save(volunteer);
-        return mapToVolunteerDto(entity);
+
+        return jwtService.generateToken(entity.getEmail(), entity.getName());
     }
 
 
     @Override
-    public VolunteerDto getUserByEmail(String email) {
+    public String getUserByEmail(String email) {
+        log.info("Get volunteer by email in VolunteerService");
+
         Volunteer volunteer = volunteerRepository.findByEmail(email).orElseThrow(
                 () -> new EntityNotFoundException("Volunteer not found"));
-        return mapToVolunteerDto(volunteer);
+        return jwtService.generateToken(volunteer.getEmail(), volunteer.getName());
     }
 
 
     @Override
-    public VolunteerDto getUserByEmailAndPassword(VolunteerDto volunteerDto) throws BadRequestException {
-        if (volunteerDto.password() == null)
-            throw new BadRequestException("Body hasn't password");
+    public String getUserByEmailAndPassword(VolunteerDto volunteerDto) throws BadRequestException {
+        log.info("Get volunteer by email&password in VolunteerService");
+
+        if (volunteerDto.password() == null) throw new BadRequestException("Body hasn't password");
+
         Volunteer volunteer = volunteerRepository.findByEmail(volunteerDto.email()).orElseThrow(
                 () -> new EntityNotFoundException("Volunteer not found"));
         
         if(arePasswordsEqual(volunteerDto, volunteer)) return null;
-        return mapToVolunteerDto(volunteer);
+        return jwtService.generateToken(volunteer.getEmail(), volunteer.getName());
     }
 
     private static boolean arePasswordsEqual(VolunteerDto volunteerDto, Volunteer volunteer) {
