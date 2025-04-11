@@ -1,10 +1,14 @@
 package com.hackathon.proj.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
-import lombok.Data;
 
 @Builder
 public record VolunteerDto(
-        String name
+        String name,
+        @NotBlank String email,
+        String password,
+        String superscription,
+        String telephoneNumber
 ) {
 }
