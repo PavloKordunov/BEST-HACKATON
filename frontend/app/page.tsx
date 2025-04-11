@@ -1,103 +1,92 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
+  
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div>
+    <div className="px-30 pt-10">
+      <div className="flex gap-20">
+        <div>
+          <div className="flex items-center gap-4 mb-14">
+            <svg  className="w-14 h-12" fill="#2F2929" >
+              <use href={`/sprite.svg?v=1#icon-logo`}></use>
+            </svg>
+            <p className="text-[36px] font-bold color">Pet Shelter</p>
+          </div>
+          <div className="pl-20 ">
+            <p className="text-[48px] font-bold color mb-10">Даруємо другий шанс <br /> тим, хто цього потребує.</p>
+            <p className="text-[16px] font-bold color mb-9">Наша платформа створена для того, щоб об’єднати людей,<br /> яким не байдуже життя безпритульних тварин.</p>
+            <p className="text-[24px] font-bold color mb-8">На нашій платформі ви можете:</p>
+            <div className="flex items-center gap-7 mb-16">
+              <div>
+                <div className="bg-[#F87537] py-4 px-6 rounded-[16px] text-ceneter text-[#fff] text-[16px] mb-7">🧡 Повідомити Про Знайдену Тварину</div>
+                <div className="bg-[#D9A4A9] py-4 px-6 rounded-[16px] text-ceneter text-[#fff] text-[16px]">🌸 Передати Її В Надійні Руки</div>
+              </div>
+              <div>
+                <div className="bg-[#D9A4A9] py-4 px-6 rounded-[16px] text-ceneter text-[#fff] text-[16px] mb-7">🐾 Знайти Нового Друга</div>
+                <div className="bg-[#F87537] py-4 px-6 rounded-[16px] text-ceneter text-[#fff] text-[16px]">🎁 Допомогти Їжею Або Донатом</div>
+              </div>
+            </div>
+            <Link href='/login' className="bg-[#F87537] py-5 px-8 rounded-[12px] text-ceneter text-[#fff] font-semibold text-[20px]">
+              Приєднатися
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="w-195 h-195 relative">
+          <Image src='/homeImg.jpg' alt="homeImg" fill className="object-contain"/>       
+        </div>
+      </div>
     </div>
+    <div className="relative pr-30 pl-50">
+        <div className="w-full h-70 relative">
+          <Image src='/footerImg.png' alt="homeImg" fill className="object-contain"/> 
+          <div className="mt-10 flex items center justify-between">
+            <div>
+              <div className="flex items-center gap-4 mb-4">
+                <svg  className="w-10 h-8" fill="#2F2929" >
+                  <use href={`/sprite.svg?v=1#icon-logo`}></use>
+                </svg>
+                <p className="text-[26px] font-bold color">Pet Shelter</p>
+              </div>
+              <p className="text-[#888] text-[16px] mb-4">Приєднуйся до великої справи — даруй<br /> шанс на краще життя тим, хто чекає на<br /> турботу!</p>  
+              <div className="flex items-center gap-4">
+                <svg  className="w-7 h-7" >
+                  <use href={`/sprite.svg#icon-facebook`}></use>
+                </svg>
+                <svg  className="w-7 h-7">
+                  <use href={`/sprite.svg#icon-instagram`}></use>
+                </svg>
+                <svg  className="w-7 h-7">
+                  <use href={`/sprite.svg#icon-twitter`}></use>
+                </svg>
+                <svg  className="w-7 h-7">
+                  <use href={`/sprite.svg#icon-youtube`}></use>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <p className="text-[26px] font-bold color mb-4">Звяжіться з нами: </p>
+              <p className="text-[#888] text-[16px] mb-4">Маєте питання або пропозиції? Залиште <br /> свій email — ми зв’яжемося з вами!</p>
+              <div className="flex items-center gap-4">
+                <input
+                  type="text"
+                  className=" px-6 py-4 w-75 rounded-[18px] bg-[#e9e5e5] text-[#2f2929] placeholder:text-[#aaa] shadow-md focus:outline-none focus:ring-2 focus:ring-[#4AA8FF]"
+                />
+                <button className="bg-[#D9A4A9] text-white text-[16px] font-semibold px-6 py-3 rounded-[16px] shadow-md hover:bg-[#c18c91] transition duration-200">
+                  Відправити
+                </button>
+              </div>
+            </div>
+            <div>
+              <p className="text-[26px] font-bold color mb-4">Контакти: </p>
+              <p className="text-[#888] text-[16px] mb-2">📍8592 Fairground St. ,Tallahassee, FL 32303</p>
+              <p className="text-[#888] text-[16px] mb-2">📞 +775 378-6348</p>
+              <p className="text-[#888] text-[16px] mb-2">✉️ rgarton@outlook.com</p>
+            </div>  
+          </div>   
+        </div>
+    </div>
+  </div>
   );
 }
