@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -25,19 +27,19 @@ public class VolunteerController {
 
     @PostMapping("/create")
     public ApiResponse<?> saveVolunteer(@Valid @RequestBody VolunteerDto volunteerDto){
-        String jwt = volunteerService.saveVolunteer(volunteerDto);
-        return new ApiResponse<>(true, HttpStatus.CREATED, "Create successful", jwt);
+        Map<String, Object> jwt = volunteerService.saveVolunteer(volunteerDto);
+        return new ApiResponse<>(true, HttpStatus.CREATED, "Create successful volunteer", jwt);
     }
 
     @GetMapping("/base")
     public ApiResponse<?> getVolunteer(@Valid @RequestBody VolunteerDto volunteerDto) throws BadRequestException {
-        String volunteer = volunteerService.getUserByEmailAndPassword(volunteerDto);
+        Map<String, Object> volunteer = volunteerService.getUserByEmailAndPassword(volunteerDto);
         return new ApiResponse<>(true, HttpStatus.OK, "Successful get volunteer by base way", volunteer);
     }
 
     @GetMapping("/email/{email}")
-    public ApiResponse<?> getVolunteer(@PathVariable String email){
-        String volunteer = volunteerService.getUserByEmail(email);
+    public ApiResponse<?> getVolunteerByEmail(@PathVariable String email){
+        Map<String, Object> volunteer = volunteerService.getUserByEmail(email);
         return new ApiResponse<>(true, HttpStatus.OK, "Successful get volunteer by API", volunteer);
     }
 
