@@ -2,6 +2,7 @@ import Image from "next/image"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { HiOutlineHeart } from "react-icons/hi2";
 import { FiArrowRight } from "react-icons/fi";
+import Link from "next/link";
 
 const HomePage = () => {
     return (
@@ -59,7 +60,7 @@ const HomePage = () => {
             <div className="flex gap-6 w-full items-center mb-10">
                 <FaChevronLeft size={36} />
                 <div className="flex w-full justify-between">
-                    <div className="w-fit bg-[#FFF] pb-2">
+                    <Link href='announcement/:id' className="w-fit bg-[#FFF] pb-2">
                         <Image src="/catImg.png" alt="Dog" width={306} height={306} className="mb-4" />
                         <div className="flex justify-between px-8">
                             <div>
@@ -68,8 +69,8 @@ const HomePage = () => {
                             </div>
                             <HiOutlineHeart size={24} color="#F87537" />
                         </div>
-                    </div>
-                    <div className="w-fit bg-[#FFF] pb-2">
+                    </Link>
+                    <Link href='announcement/:id' className="w-fit bg-[#FFF] pb-2">
                         <Image src="/catImg.png" alt="Dog" width={306} height={306} className="mb-4" />
                         <div className="flex justify-between px-8">
                             <div>
@@ -78,8 +79,8 @@ const HomePage = () => {
                             </div>
                             <HiOutlineHeart size={24} color="#F87537" />
                         </div>
-                    </div>
-                    <div className="w-fit bg-[#FFF] pb-2">
+                    </Link>
+                    <Link href='announcement/:id' className="w-fit bg-[#FFF] pb-2">
                         <Image src="/catImg.png" alt="Dog" width={306} height={306} className="mb-4" />
                         <div className="flex justify-between px-8">
                             <div>
@@ -88,8 +89,8 @@ const HomePage = () => {
                             </div>
                             <HiOutlineHeart size={24} color="#F87537" />
                         </div>
-                    </div>
-                    <div className="w-fit bg-[#FFF] pb-2">
+                    </Link>
+                    <Link href='announcement/:id' className="w-fit bg-[#FFF] pb-2">
                         <Image src="/catImg.png" alt="Dog" width={306} height={306} className="mb-4" />
                         <div className="flex justify-between px-8">
                             <div>
@@ -98,7 +99,7 @@ const HomePage = () => {
                             </div>
                             <HiOutlineHeart size={24} color="#F87537" />
                         </div>
-                    </div>
+                    </Link>
                 </div>
                 <FaChevronRight size={36} />
             </div>

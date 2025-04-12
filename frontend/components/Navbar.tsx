@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link";
 import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 
@@ -16,7 +17,8 @@ const NavBar = () => {
                 <p className="text-[20px] font-bold">Pet Shelter</p>
             </div>
             <div className="flex gap-12">
-                <p
+                <Link
+                    href='/home'
                     onClick={() => setActive("home")}
                     className={`text-[20px] cursor-pointer relative transition duration-200 ${
                     active === "home" ? "text-[#F87537] font-bold" : "text-black font-medium"
@@ -26,7 +28,7 @@ const NavBar = () => {
                     {active === "home" && (
                     <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-[#F87537]"></span>
                     )}
-                </p>
+                </Link>
                 <p
                     onClick={() => setActive("search")}
                     className={`text-[20px] cursor-pointer relative transition duration-200 ${
@@ -50,7 +52,10 @@ const NavBar = () => {
                     )}
                 </p>
             </div>
-            <FaUserCircle size={36} color="#2F2929" />            
+
+            <Link href='/profile/shelter/:id'>
+                <FaUserCircle size={36} color="#2F2929"  />            
+            </Link>
         </div>
     )
 }
