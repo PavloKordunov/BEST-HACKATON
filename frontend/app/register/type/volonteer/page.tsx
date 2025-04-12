@@ -13,7 +13,7 @@ export default function ShelterRegister() {
       </div>
 
       <div className=" hidden md:block ">
-        <Image src="/shelterImg.jpg" alt="Dog" width={900} height={700} />
+        <Image src="/volonteerImg.jpg" alt="Dog" width={900} height={700} />
      </div>
      
      <div className="bg-[#E39B9B] rounded-2xl p-8 w-full max-w-md mx-auto text-white text-center shadow-lg border border-blue-300">

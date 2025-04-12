@@ -1,13 +1,25 @@
+"use client"
+
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
+import { useUserRegister } from "@/hooks/useRegister";
+import { useState } from "react";
 
 export default function RegisterPage() {
+
+    const {user, setUser} = useUserRegister()
+    const [basicData, setBasicData] = useState({
+        email: '',
+        password: ''
+    })
+
+    // handleChange
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#fafafa] relative overflow-hidden px-4">
-      
-      {/* Logo */}
+
       <div className="absolute top-6 left-6 flex items-center gap-2">
         <svg className="w-8 h-8" fill="#000">
           <use href={`/sprite.svg?v=1#icon-logo`}></use>
@@ -35,6 +47,8 @@ export default function RegisterPage() {
             <label className="text-sm font-medium mb-1 block">📧 Електронна пошта</label>
             <input
               type="email"
+              value={basicData.email}
+              onChange={(e) => setBasicData((prev) => ({ ...prev, email: e.target.value }))}
               className="w-full px-4 py-3 rounded-[16px] bg-[#e9e5e5] text-sm focus:outline-none focus:ring-2 focus:ring-[#F87537]"
               placeholder="you@example.com"
             />
@@ -42,6 +56,8 @@ export default function RegisterPage() {
           <div className="text-left">
             <label className="text-sm font-medium mb-1 block">🔑 Пароль</label>
             <input
+              value={basicData.password}
+              onChange={(e) => setBasicData((prev) => ({ ...prev, password: e.target.value }))}
               type="password"
               className="w-full px-4 py-3 rounded-[16px] bg-[#e9e5e5] text-sm focus:outline-none focus:ring-2 focus:ring-[#F87537]"
               placeholder="********"
