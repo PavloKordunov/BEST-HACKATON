@@ -34,7 +34,7 @@ export default function Home() {
           </div>
         </div>
         <div className="w-195 h-195 relative">
-          <Image src='/homeImg.jpg' alt="homeImg" fill className="object-contain"/>       
+          <Image src='/homeImg.png' alt="homeImg" fill className="object-contain"/>       
         </div>
       </div>
     </div>

@@ -9,13 +9,19 @@ import { useState } from "react";
 
 export default function RegisterPage() {
 
-    const {user, setUser} = useUserRegister()
-    const [basicData, setBasicData] = useState({
-        email: '',
-        password: ''
-    })
+const {user, setUser} = useUserRegister()
+const [basicData, setBasicData] = useState({
+    email: '',
+    password: ''
+})
 
-    // handleChange
+const handleChange = () => {
+    setUser({
+        ...user,
+        email: basicData.email,
+        password: basicData.password
+    })
+}
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#fafafa] relative overflow-hidden px-4">
@@ -74,6 +80,7 @@ export default function RegisterPage() {
           <p className="text-sm text-gray-500 text-left">У тебе вже є аккаунт?<Link href='/login' className="text-[#F87537] cursor-pointer hover:underline">Увійти</Link></p>
 
           <Link
+            onClick={handleChange}
             href='/register/type'
             className="px-8 py-3 rounded-[16px] bg-[#F87537] text-white font-semibold text-[16px] shadow-md hover:bg-[#e56d30] transition"
           >

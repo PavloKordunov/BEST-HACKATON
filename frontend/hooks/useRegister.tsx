@@ -3,9 +3,9 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
 interface User {
-  userType: string;
-  email: string;
-  password: string;
+  userType?: string;
+  email?: string;
+  password?: string;
   shelterName?: string;
   shelterCity?: string;
   shelterAddress?: string;

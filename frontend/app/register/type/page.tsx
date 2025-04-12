@@ -1,7 +1,22 @@
+"use client"
+
+import { useUserRegister } from "@/hooks/useRegister";
 import Image from "next/image";;
 import Link from "next/link";
+import { useState } from "react";
 
 export default function TypePage() {
+
+    const {user, setUser} = useUserRegister()
+    const [userType, setUserType] = useState('')
+
+    const handleChange = () => {
+        setUser({
+            ...user,
+            userType: userType,
+        })
+    }
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#fafafa] relative overflow-hidden px-4">
       
@@ -33,6 +48,10 @@ export default function TypePage() {
                     <Link
                         href='/register/type/shelter'
                         className="px-8 py-3 rounded-[16px] bg-[#F68C6B] text-white font-semibold text-[16px] shadow-md hover:bg-[#e56d30] transition"
+                        onClick={() => { 
+                            setUserType("shelter")
+                            handleChange()
+                        }}
                     >
                         Продовжити
                     </Link>
@@ -44,8 +63,12 @@ export default function TypePage() {
                     <p className="text-[#fff] text-[32px] font-bold">Я — Волонтер</p>
                     <p className="text-[#fff] text-[16px] font-bold mb-4">Хочу допомагати з доглядом<br/> та пошуком домівок</p>
                     <Link
-                        href='/register/type/volonteer'
+                        href='/register/type/volunteer'
                         className="px-8 py-3 rounded-[16px] bg-[#F68C6B] text-white font-semibold text-[16px] shadow-md hover:bg-[#e56d30] transition"
+                        onClick={() => { 
+                            setUserType("volunteer")
+                            handleChange()
+                        }}
                     >
                         Продовжити
                     </Link>

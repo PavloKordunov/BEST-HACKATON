@@ -1,7 +1,17 @@
+"use client"
+
+import { useUserRegister } from "@/hooks/useRegister";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function ShelterRegister() {
+    const {user, setUser} = useUserRegister()
+
+    useEffect(() => {
+        console.log(user)
+    }, [])
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#fafafa] relative overflow-hidden px-10">
       
@@ -13,7 +23,7 @@ export default function ShelterRegister() {
       </div>
 
       <div className=" hidden md:block ">
-        <Image src="/shelterImg.jpg" alt="Dog" width={900} height={700} />
+        <Image src="/shelterImg.png" alt="Dog" width={900} height={700} />
      </div>
      
      <div className="bg-[#FF7A2F] rounded-2xl p-8 w-full max-w-md mx-auto text-white text-center space-y-5 shadow-lg">
@@ -64,9 +74,9 @@ export default function ShelterRegister() {
     />
   </div>
 
-  <button className="px-8 py-3 rounded-[16px] bg-[#F68C6B] text-white font-semibold text-[16px] shadow-md hover:bg-[#e56d30] transition">
+  <Link href='/home' className="px-8 py-3 rounded-[16px] bg-[#F68C6B] text-white font-semibold text-[16px] shadow-md hover:bg-[#e56d30] transition">
     Завершити реєстрацію
-  </button>
+  </Link>
 </div>
 
     </div>
