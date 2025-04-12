@@ -6,14 +6,21 @@ import com.hackathon.proj.repository.ShelterRepository;
 import com.hackathon.proj.service.JwtService;
 import com.hackathon.proj.service.ShelterService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 
 @Service
@@ -53,9 +60,53 @@ public class ShelterServiceImpl implements ShelterService {
         Shelter shelter = shelterRepository.findByEmail(shelterDto.email()).orElseThrow(
                 () -> new EntityNotFoundException("Shelter not found"));
 
-        if(arePasswordsEqual(shelterDto, shelter)) return null;
+        if (arePasswordsEqual(shelterDto, shelter)) return null;
 
         return getStringObjectMap(shelter);
+    }
+
+    @Override
+    public ShelterDto getById(UUID id) {
+        log.info("Get shelter by ID in ShelterService");
+
+        Shelter shelter = shelterRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Shelter not found"));
+        return mapToShelterDto(shelter);
+    }
+
+    @Override
+    public List<ShelterDto> getAllShelters(Integer page, Integer amount) {
+        log.info("Get shelters in ShelterService");
+
+        Pageable pageable = PageRequest.of(page, amount, Sort.by("createdAt").descending());
+        List<Shelter> shelters = shelterRepository.findAll(pageable).getContent();
+        return shelters.stream()
+                .map(ShelterServiceImpl::mapToShelterDto)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public UUID updateShelter(ShelterDto shelterDto) {
+        log.info("Update shelter in ShelterService");
+
+        Shelter shelter = shelterRepository.findByEmail(shelterDto.email()).orElseThrow(
+                () -> new EntityNotFoundException("Shelter not found"));
+        updateShelterFields(shelter, shelterDto);
+        shelterRepository.save(shelter);
+        return shelter.getId();
+    }
+
+
+    private void updateShelterFields(Shelter shelter, ShelterDto shelterDto) {
+        if (!Objects.equals(shelterDto.name(), shelter.getName()))
+            shelter.setName(shelterDto.name());
+        if (!Objects.equals(shelter.getLocation(), shelterDto.location()))
+            shelter.setLocation(shelterDto.location());
+        if (!Objects.equals(shelter.getCity(), shelterDto.city()))
+            shelter.setCity(shelterDto.city());
+        if (!Objects.equals(shelter.getTelephoneNumber(), shelterDto.telephoneNumber()))
+            shelter.setTelephoneNumber(shelterDto.telephoneNumber());
     }
 
     private boolean arePasswordsEqual(ShelterDto shelterDto, Shelter shelter) {
@@ -94,7 +145,7 @@ public class ShelterServiceImpl implements ShelterService {
         return map;
     }
 
-    private ShelterDto mapToShelterDto(Shelter shelter) {
+    private static ShelterDto mapToShelterDto(Shelter shelter) {
         return ShelterDto.builder()
                 .name(shelter.getName())
                 .email(shelter.getEmail())

@@ -6,14 +6,21 @@ import com.hackathon.proj.repository.VolunteerRepository;
 import com.hackathon.proj.service.JwtService;
 import com.hackathon.proj.service.VolunteerService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 
 @Slf4j
@@ -57,6 +64,47 @@ public class VolunteerServiceImpl implements VolunteerService {
 
         return getStringObjectMap(volunteer);
     }
+
+    @Override
+    public VolunteerDto getById(UUID id) {
+        log.info("Get volunteer by ID in VolunteerService");
+
+        Volunteer volunteer = volunteerRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Volunteer not found"));
+        return mapToVolunteerDto(volunteer);
+    }
+
+    @Override
+    public List<VolunteerDto> getAllVolunteers(Integer page, Integer amount) {
+        log.info("Get volunteers in VolunteerService");
+
+        Pageable pageable = PageRequest.of(page, amount, Sort.by("createdAt").descending());
+        List<Volunteer> volunteers = volunteerRepository.findAll(pageable).getContent();
+        return volunteers.stream()
+                .map(VolunteerServiceImpl::mapToVolunteerDto)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public UUID updateVolunteer(VolunteerDto volunteerDto) {
+        log.info("Update volunteer in VolunteerService");
+        Volunteer volunteer = volunteerRepository.findByEmail(volunteerDto.email()).orElseThrow(
+                () -> new EntityNotFoundException("Volunteer not found"));
+        updateVolunteerFields(volunteer, volunteerDto);
+        volunteerRepository.save(volunteer);
+        return volunteer.getId();
+    }
+
+    private void updateVolunteerFields(Volunteer volunteer, VolunteerDto volunteerDto) {
+        if (!Objects.equals(volunteerDto.name(), volunteer.getName()))
+            volunteer.setName(volunteerDto.name());
+        if (!Objects.equals(volunteerDto.telephoneNumber(), volunteer.getTelephoneNumber()))
+            volunteer.setTelephoneNumber(volunteerDto.telephoneNumber());
+        if (!Objects.equals(volunteerDto.superscription(), volunteer.getSuperscription()))
+            volunteer.setSuperscription(volunteerDto.superscription());
+    }
+
 
     private Map<String, Object> getStringObjectMap(Volunteer volunteer) {
         String jwt = jwtService.generateToken(volunteer.getEmail(), volunteer.getName());
