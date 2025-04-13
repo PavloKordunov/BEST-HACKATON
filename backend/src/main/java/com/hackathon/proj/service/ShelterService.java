@@ -1,7 +1,6 @@
 package com.hackathon.proj.service;
 
 import com.hackathon.proj.dto.ShelterDto;
-import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
 
 import java.util.List;

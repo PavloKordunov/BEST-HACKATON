@@ -28,8 +28,8 @@ import java.util.UUID;
 public class ShelterController {
     private final ShelterService shelterService;
 
-    @PostMapping("/create")
-    public ApiResponse<?> saveShelter(@Valid @RequestBody ShelterDto shelterDto){
+    @PostMapping("/new")
+    public ApiResponse<?> createShelter(@Valid @RequestBody ShelterDto shelterDto){
         Map<String, Object> jwt = shelterService.saveShelter(shelterDto);
         return new ApiResponse<>(true, HttpStatus.CREATED, "Create shelter successful", jwt);
     }

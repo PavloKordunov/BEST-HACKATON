@@ -1,0 +1,73 @@
+package com.hackathon.proj.entity;
+
+import com.hackathon.proj.enums.AnimalType;
+import com.hackathon.proj.enums.SexType;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Entity
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Advertisement {
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column
+    private Double age;
+
+    @Column(nullable = false)
+    private SexType sex;
+
+    @Column(nullable = false)
+    private AnimalType animalType;
+
+    @Column
+    private String breed;
+
+    @Column
+    private String size;
+
+    @Column
+    private String colorFur;
+
+    @Column(nullable = false)
+    private String healthStatus;
+
+    @Column
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private String description;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private Boolean isActive;
+
+    @ManyToOne
+    @JoinColumn(name = "shelter_id")
+    private Shelter shelter;
+
+}

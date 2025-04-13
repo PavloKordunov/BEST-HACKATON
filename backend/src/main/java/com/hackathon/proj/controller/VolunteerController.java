@@ -29,8 +29,8 @@ import java.util.UUID;
 public class VolunteerController {
     private final VolunteerService volunteerService;
 
-    @PostMapping("/create")
-    public ApiResponse<?> saveVolunteer(@Valid @RequestBody VolunteerDto volunteerDto){
+    @PostMapping("/new")
+    public ApiResponse<?> createVolunteer(@Valid @RequestBody VolunteerDto volunteerDto){
         Map<String, Object> jwt = volunteerService.saveVolunteer(volunteerDto);
         return new ApiResponse<>(true, HttpStatus.CREATED, "Create successful volunteer", jwt);
     }
