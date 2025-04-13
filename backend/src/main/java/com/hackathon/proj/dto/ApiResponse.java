@@ -11,7 +11,7 @@ public record ApiResponse<T>(
         T body) {
 
     public static ApiResponse<GenericResponse> apiResponse(
-            boolean success, int statusCode, String message, Long id) {
+            boolean success, int statusCode, String message, UUID id) {
         return new ApiResponse<>(success, HttpStatusCode.valueOf(statusCode), message, new GenericResponse(id));
     }
 }

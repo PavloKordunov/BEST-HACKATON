@@ -3,14 +3,16 @@ package com.hackathon.proj.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.UUID;
+
 @AllArgsConstructor
 @Data
 public class GenericResponse {
 
-    private Long id;
+    private UUID id;
     private String message;
 
-    public GenericResponse(Long id) {
+    public GenericResponse(UUID id) {
         this.id = id;
     }
 }
