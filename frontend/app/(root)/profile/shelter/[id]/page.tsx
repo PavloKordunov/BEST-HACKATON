@@ -106,7 +106,7 @@ const ShelterProfilePage = () => {
             <div className="flex gap-3 mb-40">
                 <Image src="/person.png" alt="Dog" width={108} height={108} />
                 <div>
-                <div className="flex items-center gap-10">
+                <div className="flex gap-10">
                     <div className="flex gap-5 items-center mb-4">
                         <p className="text-[20px] font-bold">Олена</p>
                         <div className="flex items-center gap-1">
@@ -120,7 +120,7 @@ const ShelterProfilePage = () => {
                 <p className="text-[20px] max-w-[800px] text-[#888888] font-semibold">🌟 Дуже вдячна притулку за чудового пса Макса! Все пройшло легко, тварина здорова, доглянута, а команда — неймовірно турботлива. Рекомендую! ❤️</p>
                 </div>
             </div>
-            
+
             <div className="relative">
                 <div className="w-full h-70 relative">
                     <Image src='/footerImg.png' alt="homeImg" fill className="object-contain"/> 

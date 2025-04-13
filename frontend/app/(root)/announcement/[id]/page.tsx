@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import { HiOutlineHeart } from "react-icons/hi2"
 
@@ -12,13 +13,13 @@ const AnnouncementPage = () => {
                         Допомогти донатом
                     </div>
                     <p className="text-[20px] font-bold mb-4">Місце знаходження:</p>
-                    <div className="flex gap-2">
+                    <Link href="/profile/shelter/:id" className="flex gap-2">
                         <Image src="/shelterLogo.png" alt="Dog" width={56} height={53} className="mb-6" />
                         <div className="w-fit h-fit bg-[#FAF3EF] rounded-[20px] p-2">
                             <p className="text-[13px] font-semibold">Домівка врятованих тварин</p>
                             <p className="text-[12px] text-[#888888] font-semibold">м.Львів вул. Олекси Довбуша, 24</p>
                         </div>
-                    </div>
+                    </Link>
                 </div>
                 <div className="w-full">
                     <div className="w-full bg-[#FAF3EF] rounded-[60px] p-10 gap-7 flex flex-col mb-10">

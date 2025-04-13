@@ -53,7 +53,7 @@ const NavBar = () => {
                 </p>
             </div>
 
-            <Link href='/profile/shelter/:id'>
+            <Link href='/profile/volunteer/:id'>
                 <FaUserCircle size={36} color="#2F2929"  />            
             </Link>
         </div>
