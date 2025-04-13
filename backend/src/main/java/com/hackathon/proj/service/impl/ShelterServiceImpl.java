@@ -9,7 +9,6 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.BadRequestException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -42,28 +41,28 @@ public class ShelterServiceImpl implements ShelterService {
     }
 
 
-    @Override
-    public Map<String, Object> getUserByEmail(String email) {
-        log.info("Get shelter by email in ShelterService");
-
-        Shelter shelter = shelterRepository.findByEmail(email).orElseThrow(
-                () -> new EntityNotFoundException("Shelter not found"));
-        return getStringObjectMap(shelter);
-    }
-
-    @Override
-    public Map<String, Object> getUserByEmailAndPassword(ShelterDto shelterDto) throws BadRequestException {
-        log.info("Get shelter by email&password in ShelterService");
-
-        if (shelterDto.password() == null) throw new BadRequestException("Body hasn't password");
-
-        Shelter shelter = shelterRepository.findByEmail(shelterDto.email()).orElseThrow(
-                () -> new EntityNotFoundException("Shelter not found"));
-
-        if (arePasswordsEqual(shelterDto, shelter)) return null;
-
-        return getStringObjectMap(shelter);
-    }
+//    @Override
+//    public Map<String, Object> getUserByEmail(String email) {
+//        log.info("Get shelter by email in ShelterService");
+//
+//        Shelter shelter = shelterRepository.findByEmail(email).orElseThrow(
+//                () -> new EntityNotFoundException("Shelter not found"));
+//        return getStringObjectMap(shelter);
+//    }
+//
+//    @Override
+//    public Map<String, Object> getUserByEmailAndPassword(ShelterDto shelterDto) throws BadRequestException {
+//        log.info("Get shelter by email&password in ShelterService");
+//
+//        if (shelterDto.password() == null) throw new BadRequestException("Body hasn't password");
+//
+//        Shelter shelter = shelterRepository.findByEmail(shelterDto.email()).orElseThrow(
+//                () -> new EntityNotFoundException("Shelter not found"));
+//
+//        if (arePasswordsEqual(shelterDto, shelter)) return null;
+//
+//        return getStringObjectMap(shelter);
+//    }
 
     @Override
     public ShelterDto getById(UUID id) {
@@ -109,10 +108,6 @@ public class ShelterServiceImpl implements ShelterService {
             shelter.setTelephoneNumber(shelterDto.telephoneNumber());
     }
 
-    private boolean arePasswordsEqual(ShelterDto shelterDto, Shelter shelter) {
-        return !BCrypt.checkpw(shelterDto.password(), shelter.getPassword());
-    }
-
     private Shelter getShelter(ShelterDto shelterDto) {
         Shelter shelter;
         if (shelterDto.password() != null) {
@@ -145,7 +140,7 @@ public class ShelterServiceImpl implements ShelterService {
         return map;
     }
 
-    private static ShelterDto mapToShelterDto(Shelter shelter) {
+    public static ShelterDto mapToShelterDto(Shelter shelter) {
         return ShelterDto.builder()
                 .name(shelter.getName())
                 .email(shelter.getEmail())

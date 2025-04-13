@@ -9,7 +9,6 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.BadRequestException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +26,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Service
 public class VolunteerServiceImpl implements VolunteerService {
+
     private final VolunteerRepository volunteerRepository;
     private final JwtService jwtService;
 
@@ -41,29 +41,29 @@ public class VolunteerServiceImpl implements VolunteerService {
     }
 
 
-    @Override
-    public Map<String, Object> getUserByEmail(String email) {
-        log.info("Get volunteer by email in VolunteerService");
-
-        Volunteer volunteer = volunteerRepository.findByEmail(email).orElseThrow(
-                () -> new EntityNotFoundException("Volunteer not found"));
-        return getStringObjectMap(volunteer);
-    }
-
-
-    @Override
-    public Map<String, Object> getUserByEmailAndPassword(VolunteerDto volunteerDto) throws BadRequestException {
-        log.info("Get volunteer by email&password in VolunteerService");
-
-        if (volunteerDto.password() == null) throw new BadRequestException("Body hasn't password");
-
-        Volunteer volunteer = volunteerRepository.findByEmail(volunteerDto.email()).orElseThrow(
-                () -> new EntityNotFoundException("Volunteer not found"));
-        
-        if(arePasswordsEqual(volunteerDto, volunteer)) return null;
-
-        return getStringObjectMap(volunteer);
-    }
+//    @Override
+//    public Map<String, Object> getUserByEmail(String email) {
+//        log.info("Get volunteer by email in VolunteerService");
+//
+//        Volunteer volunteer = volunteerRepository.findByEmail(email).orElseThrow(
+//                () -> new EntityNotFoundException("Volunteer not found"));
+//        return getStringObjectMap(volunteer);
+//    }
+//
+//
+//    @Override
+//    public Map<String, Object> getUserByEmailAndPassword(VolunteerDto volunteerDto) throws BadRequestException {
+//        log.info("Get volunteer by email&password in VolunteerService");
+//
+//        if (volunteerDto.password() == null) throw new BadRequestException("Body hasn't password");
+//
+//        Volunteer volunteer = volunteerRepository.findByEmail(volunteerDto.email()).orElseThrow(
+//                () -> new EntityNotFoundException("Volunteer not found"));
+//
+//        if(arePasswordsEqual(volunteerDto, volunteer)) return null;
+//
+//        return getStringObjectMap(volunteer);
+//    }
 
     @Override
     public VolunteerDto getById(UUID id) {
@@ -115,10 +115,6 @@ public class VolunteerServiceImpl implements VolunteerService {
         return map;
     }
 
-    private static boolean arePasswordsEqual(VolunteerDto volunteerDto, Volunteer volunteer) {
-        return !BCrypt.checkpw(volunteerDto.password(), volunteer.getPassword());
-    }
-
     private static Volunteer getVolunteer(VolunteerDto volunteerDto) {
         Volunteer volunteer;
         if (volunteerDto.password() != null) {
@@ -140,7 +136,7 @@ public class VolunteerServiceImpl implements VolunteerService {
                 .build();
     }
 
-    private static VolunteerDto mapToVolunteerDto(Volunteer volunteer) {
+    public static VolunteerDto mapToVolunteerDto(Volunteer volunteer) {
         return VolunteerDto.builder()
                 .email(volunteer.getEmail())
                 .telephoneNumber(volunteer.getTelephoneNumber())

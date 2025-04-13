@@ -6,7 +6,6 @@ import com.hackathon.proj.dto.ShelterDto;
 import com.hackathon.proj.service.ShelterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,17 +34,17 @@ public class ShelterController {
         return new ApiResponse<>(true, HttpStatus.CREATED, "Create shelter successful", jwt);
     }
 
-    @GetMapping("/base")
-    public ApiResponse<Map<String, Object>> getShelter(@Valid @RequestBody ShelterDto shelterDto) throws BadRequestException {
-        Map<String, Object> shelter = shelterService.getUserByEmailAndPassword(shelterDto);
-        return new ApiResponse<>(true, HttpStatus.OK, "Successful get shelter by base way", shelter);
-    }
-
-    @GetMapping("/email/{email}")
-    public ApiResponse<Map<String, Object>> getShelterByEmail(@PathVariable String email){
-        Map<String, Object> shelter = shelterService.getUserByEmail(email);
-        return new ApiResponse<>(true, HttpStatus.OK, "Successful get shelter by API", shelter);
-    }
+//    @GetMapping("/base")
+//    public ApiResponse<Map<String, Object>> getShelter(@Valid @RequestBody ShelterDto shelterDto) throws BadRequestException {
+//        Map<String, Object> shelter = shelterService.getUserByEmailAndPassword(shelterDto);
+//        return new ApiResponse<>(true, HttpStatus.OK, "Successful get shelter by base way", shelter);
+//    }
+//
+//    @GetMapping("/email/{email}")
+//    public ApiResponse<Map<String, Object>> getShelterByEmail(@PathVariable String email){
+//        Map<String, Object> shelter = shelterService.getUserByEmail(email);
+//        return new ApiResponse<>(true, HttpStatus.OK, "Successful get shelter by API", shelter);
+//    }
 
     @GetMapping("/id/{id}")
     public ApiResponse<ShelterDto> getShelterById(@PathVariable UUID id){
