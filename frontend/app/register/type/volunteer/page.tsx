@@ -1,7 +1,43 @@
+'use client'
+
+import { useUserRegister } from "@/hooks/useRegister";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function ShelterRegister() {
+
+  const {user, setUser} = useUserRegister()
+  const [volunteerData, setVolunteerData] = useState({
+    name: '',
+    superscription: '',
+    telephoneNumber: ''
+  })
+  
+  const createVolunteer = async() => {
+    try {
+      const res = await fetch('http://localhost:8080/api/volunteer/new', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: user?.email,
+          password: user?.password,
+          name: volunteerData.name,
+          superscription: volunteerData.superscription,
+          telephoneNumber: volunteerData.telephoneNumber
+        })
+      })
+
+      const data = await res.json()
+      console.log(data)
+      console.log(volunteerData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#fafafa] relative overflow-hidden px-10">
       
@@ -22,6 +58,8 @@ export default function ShelterRegister() {
   <div className="text-left mb-4">
     <label className="block mb-1">🧑‍💼 Ім’я та прізвище</label>
     <input
+      value={volunteerData.name}
+      onChange={(e) => setVolunteerData((prev) => ({...prev, name: e.target.value}))}
       type="text"
       className="w-full px-4 py-2 rounded-md bg-[#F3BEBE] placeholder-white text-white outline-none"
       placeholder=" "
@@ -31,6 +69,8 @@ export default function ShelterRegister() {
   <div className="text-left mb-4">
     <label className="block mb-1">🏙️ Місто проживання</label>
     <input
+      value={volunteerData.superscription}
+      onChange={(e) => setVolunteerData((prev) => ({...prev, superscription: e.target.value}))}
       type="text"
       className="w-full px-4 py-2 rounded-md bg-[#F3BEBE] placeholder-white text-white outline-none"
       placeholder=" "
@@ -40,6 +80,8 @@ export default function ShelterRegister() {
   <div className="text-left mb-4">
     <label className="block mb-1">📞 Номер телефону</label>
     <input
+      value={volunteerData.telephoneNumber}
+      onChange={(e) => setVolunteerData((prev) => ({...prev, telephoneNumber: e.target.value}))}
       type="tel"
       className="w-full px-4 py-2 rounded-md bg-[#F3BEBE] placeholder-white text-white outline-none"
       placeholder=" "
@@ -77,7 +119,7 @@ export default function ShelterRegister() {
     />
   </div>
 
-  <Link href='/home' className="px-8 py-3 rounded-[16px] bg-[#F68C6B] text-white font-semibold text-[16px] shadow-md hover:bg-[#e56d30] transition">
+  <Link href='/home' onClick={createVolunteer} className="px-8 py-3 rounded-[16px] bg-[#F68C6B] text-white font-semibold text-[16px] shadow-md hover:bg-[#e56d30] transition">
     Завершити реєстрацію
   </Link>
 </div>
