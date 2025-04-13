@@ -1,9 +1,17 @@
+'use client'
+
+import { CreateAdModal } from "@/components/CreateAd"
 import Image from "next/image"
 import Link from "next/link"
+import { useState } from "react"
 import { FaChevronLeft, FaChevronRight, FaStar } from "react-icons/fa"
 import { HiOutlineHeart } from "react-icons/hi2"
 
 const ShelterProfilePage = () => {
+    const [isShow, setIsShow] = useState(false)
+    const handleClose = () => {
+        setIsShow(false)
+    }
     return (
         <div>
             <div className="flex gap-15 mb-10">
@@ -23,13 +31,17 @@ const ShelterProfilePage = () => {
                         <p className="text-[48px] font-bold">4.6 ⭐</p>
                     </div>
                     <p className="text-[32px] text-[#888888] font-semibold mb-4">Притулок для тварин</p>
+                    {/* <button onClick={() => setIsShow(!isShow)}>click me</button> */}
 
                     <p className="text-[24px] text-[#888888] font-medium">📍8592 Fairground St. ,Tallahassee, FL 32303</p>
                     <p className="text-[24px] text-[#888888] font-medium mb-12">📞 +775 378-6348</p>
 
                     <div className="flex items-center mb-10">
-                        <div className="bg-[#F87537] mr-15 w-fit mb-8 py-5 px-7 rounded-[12px] text-ceneter text-[#fff] font-semibold text-[20px]">
+                        <div className="bg-[#F87537] mr-5 w-fit mb-8 py-5 px-7 rounded-[12px] text-ceneter text-[#fff] font-semibold text-[20px]">
                             Пожертвувати
+                        </div>
+                        <div className="bg-[#F87537] mr-15 w-fit mb-8 py-5 px-7 rounded-[12px] text-ceneter text-[#fff] font-semibold text-[20px]" onClick={() => setIsShow(!isShow)}>
+                            Додати оголошення
                         </div>
                         <div className="bg-none mr-5 border-[#A68B8B] border-[2px] w-fit mb-8 py-5 px-7 rounded-[12px] text-ceneter font-semibold text-[20px]">
                             Написати
@@ -169,7 +181,8 @@ const ShelterProfilePage = () => {
                     </div>  
                     </div>   
                 </div>
-            </div>            
+            </div>
+            {isShow && <CreateAdModal handleClose={handleClose} />}            
         </div>
     )
 }

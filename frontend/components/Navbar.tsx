@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
+import { CreateAdModal } from "./CreateAd";
 
 const NavBar = () => {
 
@@ -52,6 +53,7 @@ const NavBar = () => {
                     <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-[#F87537]"></span>
                     )}
                 </p>
+        
             </div>
 
             <Link href='/profile/volunteer/:id'>
