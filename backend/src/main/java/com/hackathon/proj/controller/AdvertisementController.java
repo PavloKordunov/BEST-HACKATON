@@ -4,7 +4,6 @@ import com.hackathon.proj.dto.AdvertisementDto;
 import com.hackathon.proj.dto.ApiResponse;
 import com.hackathon.proj.dto.GenericResponse;
 import com.hackathon.proj.service.AdvertisementService;
-import jakarta.servlet.ServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("https://localhost:3000")
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/advertisement")
 public class AdvertisementController {
 
@@ -36,26 +35,26 @@ public class AdvertisementController {
     }
 
     @GetMapping("/id/{id}")
-    public ApiResponse<?> getById(@PathVariable UUID id){
+    public ApiResponse<AdvertisementDto> getById(@PathVariable UUID id){
         AdvertisementDto dto = advertisementService.getById(id);
         return new ApiResponse<>(true, HttpStatus.OK, "Successful get by ID advertisement", dto);
     }
 
     @GetMapping
-    public ApiResponse<?> getAllAdvertisements(@RequestParam Integer page,
-                                               @RequestParam Integer amount, ServletRequest servletRequest) {
+    public ApiResponse<List<AdvertisementDto>> getAllAdvertisements(@RequestParam Integer page,
+                                               @RequestParam Integer amount) {
         List<AdvertisementDto> dtoList = advertisementService.getAll(page, amount);
         return new ApiResponse<>(true, HttpStatus.OK, "Successful get advertisements", dtoList);
     }
 
     @GetMapping("/shelter/{id}")
-    public ApiResponse<?> getByShelterId(@PathVariable UUID id){
+    public ApiResponse<List<AdvertisementDto>> getByShelterId(@PathVariable UUID id){
         List<AdvertisementDto> dto = advertisementService.getBySheltersId(id);
         return new ApiResponse<>(true, HttpStatus.OK, "Successful get advertisements by shelter ID", dto);
     }
 
     @PatchMapping("/update")
-    public ApiResponse<?> updateAdvertisement(@Valid @RequestBody AdvertisementDto dto){
+    public ApiResponse<GenericResponse> updateAdvertisement(@Valid @RequestBody AdvertisementDto dto){
         UUID id = advertisementService.updateAdvertisement(dto);
         return ApiResponse.apiResponse(true, 200, "Successful update advertisement", id);
     }

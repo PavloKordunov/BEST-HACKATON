@@ -16,16 +16,16 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("https://localhost:3000")
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/search")
 public class SearchController {
 
     private final AdvertisementService advertisementService;
 
     @GetMapping("/advertisement")
-    public ApiResponse<?> findAdvertisements(@RequestParam AnimalType animalType,
-                                             @RequestParam Double minAge,
-                                             @RequestParam Double maxAge,
+    public ApiResponse<List<AdvertisementDto>> findAdvertisements(@RequestParam(defaultValue = "0") AnimalType animalType,
+                                             @RequestParam(defaultValue = "0.0") Double minAge,
+                                             @RequestParam(defaultValue = "100.0") Double maxAge,
                                              @RequestParam String healthStatus) {
         List<AdvertisementDto> advertisements = advertisementService
                 .findAdvertisements(animalType, minAge, maxAge, healthStatus);
