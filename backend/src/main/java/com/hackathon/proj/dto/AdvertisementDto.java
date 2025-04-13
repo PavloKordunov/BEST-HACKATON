@@ -15,7 +15,7 @@ public record AdvertisementDto(
         UUID id,
         @NotBlank String name,
         Double age,
-        @NotNull SexType sex,
+        SexType sex,
         @NotNull AnimalType animalType,
         String breed,
         List<String> images,

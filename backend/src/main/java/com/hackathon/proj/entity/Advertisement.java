@@ -39,7 +39,7 @@ public class Advertisement {
     @Column
     private Double age;
 
-    @Column(nullable = false)
+    @Column
     private SexType sex;
 
     @Column(nullable = false)
