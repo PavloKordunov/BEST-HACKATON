@@ -100,6 +100,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
             advertisement.setDescription(dto.description());
         if (!Objects.equals(dto.isActive(), advertisement.getIsActive()))
             advertisement.setIsActive(dto.isActive());
+        advertisement.setImageUrls(dto.images()); //TODO: implement more check
     }
 
 
@@ -117,6 +118,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
                 .sex(advertisement.getSex())
                 .animalType(advertisement.getAnimalType())
                 .breed(advertisement.getBreed())
+                .images(advertisement.getImageUrls())
                 .size(advertisement.getSize())
                 .colorFur(advertisement.getColorFur())
                 .healthStatus(advertisement.getHealthStatus())
@@ -133,6 +135,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
                 .sex(dto.sex())
                 .animalType(dto.animalType())
                 .breed(dto.breed())
+                .imageUrls(dto.images())
                 .size(dto.size())
                 .colorFur(dto.colorFur())
                 .healthStatus(dto.healthStatus())

@@ -3,7 +3,9 @@ package com.hackathon.proj.entity;
 import com.hackathon.proj.enums.AnimalType;
 import com.hackathon.proj.enums.SexType;
 import jakarta.persistence.Basic;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +20,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -44,6 +47,11 @@ public class Advertisement {
 
     @Column
     private String breed;
+
+    @ElementCollection
+    @CollectionTable(name = "advertisement_images", joinColumns = @JoinColumn(name = "advertisement_id"))
+    @Column(name = "image_url")
+    private List<String> imageUrls;
 
     @Column
     private String size;
