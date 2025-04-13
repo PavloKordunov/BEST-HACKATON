@@ -138,6 +138,7 @@ public class VolunteerServiceImpl implements VolunteerService {
 
     public static VolunteerDto mapToVolunteerDto(Volunteer volunteer) {
         return VolunteerDto.builder()
+                .id(volunteer.getId())
                 .email(volunteer.getEmail())
                 .telephoneNumber(volunteer.getTelephoneNumber())
                 .name(volunteer.getName())

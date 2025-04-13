@@ -5,8 +5,11 @@ import com.hackathon.proj.enums.ShelterType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 
+import java.util.UUID;
+
 @Builder
 public record ShelterDto(
+        UUID id,
         String name,
         @NotBlank String email,
         String password,
