@@ -1,6 +1,7 @@
 package com.hackathon.proj.controller;
 
 import com.hackathon.proj.dto.ApiResponse;
+import com.hackathon.proj.dto.GenericResponse;
 import com.hackathon.proj.dto.VolunteerDto;
 import com.hackathon.proj.service.VolunteerService;
 import jakarta.validation.Valid;
@@ -24,44 +25,44 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("https://localhost:3000")
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/volunteer")
 public class VolunteerController {
     private final VolunteerService volunteerService;
 
-    @PostMapping("/create")
-    public ApiResponse<?> saveVolunteer(@Valid @RequestBody VolunteerDto volunteerDto){
+    @PostMapping("/new")
+    public ApiResponse<Map<String, Object>> createVolunteer(@Valid @RequestBody VolunteerDto volunteerDto){
         Map<String, Object> jwt = volunteerService.saveVolunteer(volunteerDto);
         return new ApiResponse<>(true, HttpStatus.CREATED, "Create successful volunteer", jwt);
     }
 
     @GetMapping("/base")
-    public ApiResponse<?> getVolunteer(@Valid @RequestBody VolunteerDto volunteerDto) throws BadRequestException {
+    public ApiResponse<Map<String, Object>> getVolunteer(@Valid @RequestBody VolunteerDto volunteerDto) throws BadRequestException {
         Map<String, Object> volunteer = volunteerService.getUserByEmailAndPassword(volunteerDto);
         return new ApiResponse<>(true, HttpStatus.OK, "Successful get volunteer by base way", volunteer);
     }
 
     @GetMapping("/email/{email}")
-    public ApiResponse<?> getVolunteerByEmail(@PathVariable String email){
+    public ApiResponse<Map<String, Object>> getVolunteerByEmail(@PathVariable String email){
         Map<String, Object> volunteer = volunteerService.getUserByEmail(email);
         return new ApiResponse<>(true, HttpStatus.OK, "Successful get volunteer by API", volunteer);
     }
 
     @GetMapping("/id/{id}")
-    public ApiResponse<?> getVolunteerById(@PathVariable UUID id){
+    public ApiResponse<VolunteerDto> getVolunteerById(@PathVariable UUID id){
         VolunteerDto volunteerDto = volunteerService.getById(id);
         return new ApiResponse<>(true, HttpStatus.OK, "Successful get volunteer by ID", volunteerDto);
     }
 
     @GetMapping
-    public ApiResponse<?> getAllVolunteers(@RequestParam Integer page,
+    public ApiResponse<List<VolunteerDto>> getAllVolunteers(@RequestParam Integer page,
                                            @RequestParam Integer amount) {
         List<VolunteerDto> volunteers = volunteerService.getAllVolunteers(page, amount);
         return new ApiResponse<>(true, HttpStatus.OK, "Successful get volunteers", volunteers);
     }
 
     @PatchMapping("/update")
-    public ApiResponse<?> updateVolunteer(@Valid @RequestBody VolunteerDto volunteerDto){
+    public ApiResponse<GenericResponse> updateVolunteer(@Valid @RequestBody VolunteerDto volunteerDto){
         UUID id = volunteerService.updateVolunteer(volunteerDto);
         return ApiResponse.apiResponse(true, 200, "Successful update volunteer", id);
     }
