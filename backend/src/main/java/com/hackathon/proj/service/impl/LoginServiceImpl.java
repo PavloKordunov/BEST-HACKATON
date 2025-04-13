@@ -55,11 +55,11 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public Map<String, Object> getUserByEmail(String email) {
+    public Map<String, Object> getUserByEmail(LoginDto loginDto) {
         log.info("Get user by email in LoginService");
 
-        Shelter shelter = shelterRepository.findByEmail(email).orElse(null);
-        Volunteer volunteer = volunteerRepository.findByEmail(email).orElse(null);
+        Shelter shelter = shelterRepository.findByEmail(loginDto.email()).orElse(null);
+        Volunteer volunteer = volunteerRepository.findByEmail(loginDto.email()).orElse(null);
         areBothEqualNull(volunteer, shelter);
         if(volunteer != null){
             return getStringObjectMapVolunteer(volunteer);
