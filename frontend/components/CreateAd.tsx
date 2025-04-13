@@ -1,20 +1,43 @@
 'use client'
 
+import { useUser } from "@/hooks/useUser";
 import React, { useState } from "react";
 
 export const CreateAdModal = ({handleClose} : {handleClose: () => void}) => {
+  const {user} = useUser()
   const [formData, setFormData] = useState({
     image: "",
     size: "",
-    health: "",
-    type: "",
+    healthStatus: "здоровий",
+    animalType: "",
     name: "",
-    age: "",
+    age: 1,
     breed: "",
-    color: "",
+    colorFur: "",
     description: "",
     additionalImages: [] as string[],
+    shelterId: user?.id,
+    isActive: true
   });
+
+  const createAd = async() => {
+    try {
+      const res = await fetch('http://localhost:8080/api/advertisement/new', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({formData})
+      })
+
+      const data = await res.json()
+      handleClose()
+      console.log(data)
+      console.log(formData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const encodeMainImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -122,8 +145,8 @@ export const CreateAdModal = ({handleClose} : {handleClose: () => void}) => {
 
             <label className="block text-white mb-1">Стан здоров’я</label>
             <select
-              name="health"
-              value={formData.health}
+              name="healthStatus"
+              value={formData.healthStatus}
               onChange={handleInputChange}
               className="w-full rounded-xl px-4 py-2 bg-[#EFDADA] outline-none mb-4"
             >
@@ -169,8 +192,8 @@ export const CreateAdModal = ({handleClose} : {handleClose: () => void}) => {
           <div>
             <label className="block text-white mb-1">Вид тваринки</label>
             <input
-              name="type"
-              value={formData.type}
+              name="animalType"
+              value={formData.animalType}
               onChange={handleInputChange}
               className="w-full rounded-xl px-4 py-2 bg-[#EFDADA] outline-none mb-3"
             />
@@ -201,8 +224,8 @@ export const CreateAdModal = ({handleClose} : {handleClose: () => void}) => {
 
             <label className="block text-white mb-1">Колір шерсті</label>
             <input
-              name="color"
-              value={formData.color}
+              name="colorFur"
+              value={formData.colorFur}
               onChange={handleInputChange}
               className="w-full rounded-xl px-4 py-2 bg-[#EFDADA] outline-none mb-3"
             />
@@ -219,7 +242,7 @@ export const CreateAdModal = ({handleClose} : {handleClose: () => void}) => {
 
         <div className="mt-6 flex justify-end">
           <button
-            onClick={() => console.log(formData)}
+            onClick={createAd}
             className="bg-[#FF784F] text-white px-6 py-2 rounded-xl hover:bg-[#e56842] transition"
           >
             Створити оголошення

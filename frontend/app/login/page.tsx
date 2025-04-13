@@ -6,6 +6,8 @@ import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/hooks/useUser";
 
 export default function LoginPage() {
 
@@ -13,6 +15,9 @@ export default function LoginPage() {
     email: '',
     password: ''
   })
+
+  const router = useRouter()
+  const {user, setUser} = useUser()
 
   const handleLogin = async() => {
     try {
@@ -28,7 +33,9 @@ export default function LoginPage() {
       })
 
       const data = await res.json()
+      router.push('/home')
       console.log(data)
+      setUser(data.body.user)
     } catch (error) {
       console.log(error)
     }

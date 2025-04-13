@@ -1,18 +1,24 @@
+"use client"
+
+import { useUser } from "@/hooks/useUser"
 import Image from "next/image"
 import Link from "next/link"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import { HiOutlineHeart } from "react-icons/hi2"
 
 const volunteerProfile = () => {
+
+    const {user, setUser} = useUser()
+
     return (
         <div>
             <div className="flex gap-10 mb-10">
                 <Image src="/person.png" alt="Dog" width={360} height={360} />
                 <div>
-                    <p className="text-[48px] font-bold ьи-5">Олена Кравець</p>
+                    <p className="text-[48px] font-bold ьи-5">{user?.name}</p>
                     <p className="text-[24px] text-[#888888] font-semibold">
-                    Місто: Львів<br />
-                    Електронна пошта: olena@example.com
+                    Місто: {user?.superscription}<br />
+                    Електронна пошта: {user?.email}
                     </p>
                     <p className="text-[48px] font-bold ьи-5">Активність:</p>
                     <p className="text-[24px] text-[#888888] font-semibold">

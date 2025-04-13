@@ -1,8 +1,18 @@
+"use client"
+
+import { useUser } from "@/hooks/useUser";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Home() {
+  const { setUser } = useUser();
   
+  useEffect(() => {
+    localStorage.removeItem('user');
+    setUser(null); 
+  }, []);
+
   return (
     <div>
     <div className="px-30 pt-10">

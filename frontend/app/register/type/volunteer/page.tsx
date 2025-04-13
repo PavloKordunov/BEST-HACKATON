@@ -119,7 +119,7 @@ export default function ShelterRegister() {
     />
   </div>
 
-  <Link href='/home' onClick={createVolunteer} className="px-8 py-3 rounded-[16px] bg-[#F68C6B] text-white font-semibold text-[16px] shadow-md hover:bg-[#e56d30] transition">
+  <Link href='/login' onClick={createVolunteer} className="px-8 py-3 rounded-[16px] bg-[#F68C6B] text-white font-semibold text-[16px] shadow-md hover:bg-[#e56d30] transition">
     Завершити реєстрацію
   </Link>
 </div>

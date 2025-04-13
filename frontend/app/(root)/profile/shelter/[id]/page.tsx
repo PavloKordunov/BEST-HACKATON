@@ -1,6 +1,7 @@
 'use client'
 
 import { CreateAdModal } from "@/components/CreateAd"
+import { useUser } from "@/hooks/useUser"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
@@ -12,6 +13,7 @@ const ShelterProfilePage = () => {
     const handleClose = () => {
         setIsShow(false)
     }
+    const {user, setUser} = useUser()
     return (
         <div>
             <div className="flex gap-15 mb-10">
@@ -27,21 +29,20 @@ const ShelterProfilePage = () => {
                 </div>
                 <div>
                     <div className="w-full flex items-center  gap-20">
-                        <p className="text-[48px] font-bold">Домівка врятованих тварин</p>
+                        <p className="text-[48px] font-bold">{user?.name}</p>
                         <p className="text-[48px] font-bold">4.6 ⭐</p>
                     </div>
                     <p className="text-[32px] text-[#888888] font-semibold mb-4">Притулок для тварин</p>
-                    {/* <button onClick={() => setIsShow(!isShow)}>click me</button> */}
 
-                    <p className="text-[24px] text-[#888888] font-medium">📍8592 Fairground St. ,Tallahassee, FL 32303</p>
-                    <p className="text-[24px] text-[#888888] font-medium mb-12">📞 +775 378-6348</p>
+                    <p className="text-[24px] text-[#888888] font-medium">📍{user?.location}, {user?.city}</p>
+                    <p className="text-[24px] text-[#888888] font-medium mb-12">📞 +{user?.telephoneNumber}</p>
 
                     <div className="flex items-center mb-10">
                         <div className="bg-[#F87537] mr-5 w-fit mb-8 py-5 px-7 rounded-[12px] text-ceneter text-[#fff] font-semibold text-[20px]">
                             Пожертвувати
                         </div>
                         <div className="bg-[#F87537] mr-15 w-fit mb-8 py-5 px-7 rounded-[12px] text-ceneter text-[#fff] font-semibold text-[20px]" onClick={() => setIsShow(!isShow)}>
-                            Додати оголошення
+                            {user?.userType==="shelter" ? 'Додати оголошення' : 'здати тваринку'}
                         </div>
                         <div className="bg-none mr-5 border-[#A68B8B] border-[2px] w-fit mb-8 py-5 px-7 rounded-[12px] text-ceneter font-semibold text-[20px]">
                             Написати

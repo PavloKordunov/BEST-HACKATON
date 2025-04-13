@@ -1,13 +1,14 @@
 "use client"
 
+import { useUser } from "@/hooks/useUser";
 import Link from "next/link";
 import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { CreateAdModal } from "./CreateAd";
 
 const NavBar = () => {
 
     const [active, setActive] = useState("home");
+    const {user, setUser} = useUser()
 
     return (
         <div className="w-full bg-[#fff] px-10 py-6 rounded-[40px] shadow-md flex items-center justify-between">
@@ -56,7 +57,7 @@ const NavBar = () => {
         
             </div>
 
-            <Link href='/profile/volunteer/:id'>
+            <Link href={user?.userType === "volunteer" ? `/profile/volunteer/${user?.id}` : `/profile/shelter/${user?.id}`}>
                 <FaUserCircle size={36} color="#2F2929"  />            
             </Link>
         </div>

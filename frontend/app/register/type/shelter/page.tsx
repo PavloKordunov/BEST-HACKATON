@@ -113,7 +113,7 @@ export default function ShelterRegister() {
     />
   </div>
 
-  <Link onClick={createShelter} href='/home' className="px-8 py-3 rounded-[16px] bg-[#F68C6B] text-white font-semibold text-[16px] shadow-md hover:bg-[#e56d30] transition">
+  <Link onClick={createShelter} href='/login' className="px-8 py-3 rounded-[16px] bg-[#F68C6B] text-white font-semibold text-[16px] shadow-md hover:bg-[#e56d30] transition">
     Завершити реєстрацію
   </Link>
 </div>
