@@ -29,7 +29,8 @@ const NavBar = () => {
                     <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-[#F87537]"></span>
                     )}
                 </Link>
-                <p
+                <Link 
+                    href='/search'
                     onClick={() => setActive("search")}
                     className={`text-[20px] cursor-pointer relative transition duration-200 ${
                     active === "search" ? "text-[#F87537] font-bold" : "text-black font-medium"
@@ -39,7 +40,7 @@ const NavBar = () => {
                     {active === "search" && (
                     <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-[#F87537]"></span>
                     )}
-                </p>
+                </Link>
                 <p
                     onClick={() => setActive("stories")}
                     className={`text-[20px] cursor-pointer relative transition duration-200 ${
