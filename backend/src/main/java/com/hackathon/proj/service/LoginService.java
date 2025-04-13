@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface LoginService {
     Map<String, Object> getUserByEmailAndPassword(LoginDto loginDto) throws BadRequestException;
-    Map<String, Object> getUserByEmail(String email);
+    Map<String, Object> getUserByEmail(LoginDto email);
 }

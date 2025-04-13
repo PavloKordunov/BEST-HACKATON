@@ -9,6 +9,7 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,15 +24,15 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    @GetMapping("/native")
+    @PostMapping("/native")
     public ApiResponse<Map<String, Object>> getUser(@Valid @RequestBody LoginDto loginDto) throws BadRequestException {
         Map<String, Object> user = loginService.getUserByEmailAndPassword(loginDto);
         return new ApiResponse<>(true, HttpStatus.OK, "Successful get user by native", user);
     }
 
-    @GetMapping("/oauth")
-    public ApiResponse<Map<String, Object>> getUserByEmail(@Valid @RequestBody String email){
-        Map<String, Object> user = loginService.getUserByEmail(email);
+    @PostMapping("/oauth")
+    public ApiResponse<Map<String, Object>> getUserByEmail(@Valid @RequestBody LoginDto dto){
+        Map<String, Object> user = loginService.getUserByEmail(dto);
         return new ApiResponse<>(true, HttpStatus.OK, "Successful get user by API", user);
     }
 }
