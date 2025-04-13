@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 
+import java.util.UUID;
+
 @Builder
 public record VolunteerDto(
+        UUID id,
         String name,
         @NotBlank String email,
         String password,

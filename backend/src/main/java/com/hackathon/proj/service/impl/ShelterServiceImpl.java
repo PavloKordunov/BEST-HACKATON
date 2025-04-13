@@ -142,6 +142,7 @@ public class ShelterServiceImpl implements ShelterService {
 
     public static ShelterDto mapToShelterDto(Shelter shelter) {
         return ShelterDto.builder()
+                .id(shelter.getId())
                 .name(shelter.getName())
                 .email(shelter.getEmail())
                 .shelterType(shelter.getShelterType())

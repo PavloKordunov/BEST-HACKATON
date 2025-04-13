@@ -37,13 +37,16 @@ public class Advertisement {
     private String name;
 
     @Column
+    private String image;
+
+    @Column
     private Double age;
 
-    @Column(nullable = false)
+    @Column
     private SexType sex;
 
-    @Column(nullable = false)
-    private AnimalType animalType;
+    @Column
+    private String animalType;
 
     @Column
     private String breed;
