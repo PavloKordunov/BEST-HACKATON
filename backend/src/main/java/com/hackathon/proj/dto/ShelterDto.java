@@ -16,7 +16,8 @@ public record ShelterDto(
         String location,
         String city,
         ShelterType shelterType,
-        String telephoneNumber
+        String telephoneNumber,
+        String description
 ) {
 
     @JsonProperty("userType")

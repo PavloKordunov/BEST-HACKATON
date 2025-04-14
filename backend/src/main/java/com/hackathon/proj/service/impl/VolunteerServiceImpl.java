@@ -41,31 +41,6 @@ public class VolunteerServiceImpl implements VolunteerService {
         return getStringObjectMap(entity);
     }
 
-
-//    @Override
-//    public Map<String, Object> getUserByEmail(String email) {
-//        log.info("Get volunteer by email in VolunteerService");
-//
-//        Volunteer volunteer = volunteerRepository.findByEmail(email).orElseThrow(
-//                () -> new EntityNotFoundException("Volunteer not found"));
-//        return getStringObjectMap(volunteer);
-//    }
-//
-//
-//    @Override
-//    public Map<String, Object> getUserByEmailAndPassword(VolunteerDto volunteerDto) throws BadRequestException {
-//        log.info("Get volunteer by email&password in VolunteerService");
-//
-//        if (volunteerDto.password() == null) throw new BadRequestException("Body hasn't password");
-//
-//        Volunteer volunteer = volunteerRepository.findByEmail(volunteerDto.email()).orElseThrow(
-//                () -> new EntityNotFoundException("Volunteer not found"));
-//
-//        if(arePasswordsEqual(volunteerDto, volunteer)) return null;
-//
-//        return getStringObjectMap(volunteer);
-//    }
-
     @Override
     public VolunteerDto getById(UUID id) {
         log.info("Get volunteer by ID in VolunteerService");

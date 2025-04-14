@@ -37,16 +37,18 @@ public class AdvertisementServiceImpl implements AdvertisementService {
                 () -> new EntityNotFoundException("Advertisements not found"));
         Advertisement advertisement = mapToAdvertisement(dto, shelter);
 
-        var imgs = dto.additionalImages().stream().map(AdvertisementServiceImpl::mapToImg).toList();
+        var imgs = dto.additionalImages().stream().map(s-> mapToImg(s, advertisement)).toList();
+
         advertisement.setImageUrls(imgs);
 
         Advertisement advertisementEntity = advertisementRepository.save(advertisement);
         return advertisementEntity.getId();
     }
 
-    private static Img mapToImg(String s) {
+    private static Img mapToImg(String s, Advertisement v) {
         return Img.builder()
                 .image(s)
+                .advertisement(v)
                 .build();
     }
 
@@ -141,19 +143,17 @@ public class AdvertisementServiceImpl implements AdvertisementService {
                 .description(advertisement.getDescription())
                 .isActive(advertisement.getIsActive())
                 .shelterId(advertisement.getShelter() != null ? advertisement.getShelter().getId() : null)
+                .createdAt(advertisement.getCreatedAt())
                 .build();
     }
 
     public static Advertisement mapToAdvertisement(AdvertisementDto dto, Shelter shelter) {
-        List<Img> imgs = dto.additionalImages().stream().map(AdvertisementServiceImpl::mapToImg).toList();
-
-        return Advertisement.builder()
+        Advertisement adv = Advertisement.builder()
                 .name(dto.name())
                 .age(dto.age())
                 .sex(dto.sex())
                 .animalType(dto.animalType())
                 .breed(dto.breed())
-                .imageUrls(imgs)
                 .image(dto.image())
                 .size(dto.size())
                 .colorFur(dto.colorFur())
@@ -162,5 +162,9 @@ public class AdvertisementServiceImpl implements AdvertisementService {
                 .isActive(dto.isActive())
                 .shelter(shelter)
                 .build();
+
+        List<Img> imgs = dto.additionalImages().stream().map(s-> mapToImg(s, adv)).toList();
+        adv.setImageUrls(imgs);
+        return adv;
     }
 }

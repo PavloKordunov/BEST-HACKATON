@@ -56,6 +56,9 @@ public class Shelter {
     @Lob
     private String image;
 
+    @Column
+    private String description;
+
     @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Advertisement> advertisement;
 

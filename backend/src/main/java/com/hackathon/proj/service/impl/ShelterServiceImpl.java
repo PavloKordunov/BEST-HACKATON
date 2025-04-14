@@ -41,30 +41,6 @@ public class ShelterServiceImpl implements ShelterService {
         return getStringObjectMap(entity);
     }
 
-
-//    @Override
-//    public Map<String, Object> getUserByEmail(String email) {
-//        log.info("Get shelter by email in ShelterService");
-//
-//        Shelter shelter = shelterRepository.findByEmail(email).orElseThrow(
-//                () -> new EntityNotFoundException("Shelter not found"));
-//        return getStringObjectMap(shelter);
-//    }
-//
-//    @Override
-//    public Map<String, Object> getUserByEmailAndPassword(ShelterDto shelterDto) throws BadRequestException {
-//        log.info("Get shelter by email&password in ShelterService");
-//
-//        if (shelterDto.password() == null) throw new BadRequestException("Body hasn't password");
-//
-//        Shelter shelter = shelterRepository.findByEmail(shelterDto.email()).orElseThrow(
-//                () -> new EntityNotFoundException("Shelter not found"));
-//
-//        if (arePasswordsEqual(shelterDto, shelter)) return null;
-//
-//        return getStringObjectMap(shelter);
-//    }
-
     @Override
     public ShelterDto getById(UUID id) {
         log.info("Get shelter by ID in ShelterService");
@@ -107,6 +83,8 @@ public class ShelterServiceImpl implements ShelterService {
             shelter.setCity(shelterDto.city());
         if (!Objects.equals(shelter.getTelephoneNumber(), shelterDto.telephoneNumber()))
             shelter.setTelephoneNumber(shelterDto.telephoneNumber());
+        if(!Objects.equals(shelter.getDescription(), shelterDto.description()))
+            shelter.setDescription(shelterDto.description());
     }
 
     private Shelter getShelter(ShelterDto shelterDto) {
@@ -129,6 +107,7 @@ public class ShelterServiceImpl implements ShelterService {
                 .location(shelterDto.location())
                 .telephoneNumber(shelterDto.telephoneNumber())
                 .password(password)
+                .description(shelterDto.description())
                 .build();
     }
 
@@ -150,6 +129,7 @@ public class ShelterServiceImpl implements ShelterService {
                 .city(shelter.getCity())
                 .location(shelter.getLocation())
                 .telephoneNumber(shelter.getTelephoneNumber())
+                .description(shelter.getDescription())
                 .build();
     }
 

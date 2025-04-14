@@ -35,18 +35,6 @@ public class VolunteerController {
         return new ApiResponse<>(true, HttpStatus.CREATED, "Create successful volunteer", jwt);
     }
 
-//    @GetMapping("/base")
-//    public ApiResponse<Map<String, Object>> getVolunteer(@Valid @RequestBody VolunteerDto volunteerDto) throws BadRequestException {
-//        Map<String, Object> volunteer = volunteerService.getUserByEmailAndPassword(volunteerDto);
-//        return new ApiResponse<>(true, HttpStatus.OK, "Successful get volunteer by base way", volunteer);
-//    }
-//
-//    @GetMapping("/email/{email}")
-//    public ApiResponse<Map<String, Object>> getVolunteerByEmail(@PathVariable String email){
-//        Map<String, Object> volunteer = volunteerService.getUserByEmail(email);
-//        return new ApiResponse<>(true, HttpStatus.OK, "Successful get volunteer by API", volunteer);
-//    }
-
     @GetMapping("/id/{id}")
     public ApiResponse<VolunteerDto> getVolunteerById(@PathVariable UUID id){
         VolunteerDto volunteerDto = volunteerService.getById(id);
