@@ -2,6 +2,7 @@ package com.hackathon.proj.service.impl;
 
 import com.hackathon.proj.dto.AdvertisementDto;
 import com.hackathon.proj.entity.Advertisement;
+import com.hackathon.proj.entity.Img;
 import com.hackathon.proj.entity.Shelter;
 import com.hackathon.proj.repository.AdvertisementRepository;
 import com.hackathon.proj.repository.ShelterRepository;
@@ -35,8 +36,18 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         Shelter shelter = shelterRepository.findById(dto.shelterId()).orElseThrow(
                 () -> new EntityNotFoundException("Advertisements not found"));
         Advertisement advertisement = mapToAdvertisement(dto, shelter);
+
+        var imgs = dto.additionalImages().stream().map(AdvertisementServiceImpl::mapToImg).toList();
+        advertisement.setImageUrls(imgs);
+
         Advertisement advertisementEntity = advertisementRepository.save(advertisement);
         return advertisementEntity.getId();
+    }
+
+    private static Img mapToImg(String s) {
+        return Img.builder()
+                .image(s)
+                .build();
     }
 
     @Override
@@ -102,7 +113,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
             advertisement.setDescription(dto.description());
         if (!Objects.equals(dto.isActive(), advertisement.getIsActive()))
             advertisement.setIsActive(dto.isActive());
-        advertisement.setImageUrls(dto.additionalImages()); //TODO: implement more check
+        //advertisement.setImageUrls(); //TODO: implement more check
     }
 
 
@@ -113,6 +124,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     public static AdvertisementDto mapToAdvertisementDto(Advertisement advertisement) {
+        List<String> imgs= advertisement.getImageUrls().stream().map(Img::getImage).toList();
+
         return AdvertisementDto.builder()
                 .id(advertisement.getId())
                 .name(advertisement.getName())
@@ -120,7 +133,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
                 .sex(advertisement.getSex())
                 .animalType(advertisement.getAnimalType())
                 .breed(advertisement.getBreed())
-                .additionalImages(advertisement.getImageUrls())
+                .additionalImages(imgs)
                 .image(advertisement.getImage())
                 .size(advertisement.getSize())
                 .colorFur(advertisement.getColorFur())
@@ -132,13 +145,15 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     public static Advertisement mapToAdvertisement(AdvertisementDto dto, Shelter shelter) {
+        List<Img> imgs = dto.additionalImages().stream().map(AdvertisementServiceImpl::mapToImg).toList();
+
         return Advertisement.builder()
                 .name(dto.name())
                 .age(dto.age())
                 .sex(dto.sex())
                 .animalType(dto.animalType())
                 .breed(dto.breed())
-                .imageUrls(dto.additionalImages())
+                .imageUrls(imgs)
                 .image(dto.image())
                 .size(dto.size())
                 .colorFur(dto.colorFur())

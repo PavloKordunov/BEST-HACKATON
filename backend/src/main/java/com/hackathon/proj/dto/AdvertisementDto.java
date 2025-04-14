@@ -1,6 +1,5 @@
 package com.hackathon.proj.dto;
 
-import com.hackathon.proj.enums.AnimalType;
 import com.hackathon.proj.enums.SexType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
