@@ -49,7 +49,7 @@ public class AdvertisementController {
 
     @GetMapping("/shelter/{id}")
     public ApiResponse<List<AdvertisementDto>> getByShelterId(@PathVariable UUID id){
-        List<AdvertisementDto> dto = advertisementService.getBySheltersId(id);
+        List<AdvertisementDto> dto = advertisementService.getByShelterId(id);
         return new ApiResponse<>(true, HttpStatus.OK, "Successful get advertisements by shelter ID", dto);
     }
 

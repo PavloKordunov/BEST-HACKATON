@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface AdvertisementRepository extends JpaRepository<Advertisement, UUID> {
-    List<Advertisement> findAllByShelterId(UUID id);
-
-    List<Advertisement> findAllByAgeBetweenAndAnimalTypeAndHealthStatus(Double ageAfter, Double ageBefore, AnimalType animalType, String healthStatus);
+    List<Advertisement> findAllByShelter_Id(UUID shelterId);
+    List<Advertisement> findAllByAgeBetweenAndAnimalTypeAndHealthStatus(Double ageAfter, Double ageBefore, String animalType, String healthStatus);
 
 }

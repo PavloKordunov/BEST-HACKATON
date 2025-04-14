@@ -3,11 +3,11 @@ package com.hackathon.proj.service.impl;
 import com.hackathon.proj.dto.AdvertisementDto;
 import com.hackathon.proj.entity.Advertisement;
 import com.hackathon.proj.entity.Shelter;
-import com.hackathon.proj.enums.AnimalType;
 import com.hackathon.proj.repository.AdvertisementRepository;
 import com.hackathon.proj.repository.ShelterRepository;
 import com.hackathon.proj.service.AdvertisementService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +22,7 @@ import java.util.UUID;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class AdvertisementServiceImpl implements AdvertisementService {
 
     private final AdvertisementRepository advertisementRepository;
@@ -57,10 +58,11 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
-    public List<AdvertisementDto> getBySheltersId(UUID id) {
+    @Transactional
+    public List<AdvertisementDto> getByShelterId(UUID id) {
         log.info("Get advertisements by shelter ID in AdvService");
 
-        List<Advertisement> advertisements = advertisementRepository.findAllByShelterId(id);
+        List<Advertisement> advertisements = advertisementRepository.findAllByShelter_Id(id);
         return getAdvertisementDtoList(advertisements);
     }
 
@@ -73,7 +75,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
-    public List<AdvertisementDto> findAdvertisements(AnimalType animalType, Double minAge, Double maxAge, String healthStatus) {
+    public List<AdvertisementDto> findAdvertisements(String animalType, Double minAge, Double maxAge, String healthStatus) {
         List<Advertisement> advertisements = advertisementRepository
                 .findAllByAgeBetweenAndAnimalTypeAndHealthStatus(minAge, maxAge, animalType, healthStatus);
         return getAdvertisementDtoList(advertisements);

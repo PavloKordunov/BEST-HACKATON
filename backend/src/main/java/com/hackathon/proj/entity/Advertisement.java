@@ -36,7 +36,7 @@ public class Advertisement {
     @Column(nullable = false)
     private String name;
 
-    @Column
+    @Lob
     private String image;
 
     @Column
@@ -53,7 +53,7 @@ public class Advertisement {
 
     @ElementCollection
     @CollectionTable(name = "advertisement_images", joinColumns = @JoinColumn(name = "advertisement_id"))
-    @Column(name = "image_url")
+    @Column(name = "image_url", columnDefinition = "TEXT")
     private List<String> imageUrls;
 
     @Column
@@ -66,8 +66,6 @@ public class Advertisement {
     private String healthStatus;
 
     @Column
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
     private String description;
 
     @CreationTimestamp

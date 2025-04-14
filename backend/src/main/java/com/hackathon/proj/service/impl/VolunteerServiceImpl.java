@@ -25,6 +25,7 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class VolunteerServiceImpl implements VolunteerService {
 
     private final VolunteerRepository volunteerRepository;

@@ -25,6 +25,7 @@ import java.util.UUID;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class ShelterServiceImpl implements ShelterService {
 
     private final ShelterRepository shelterRepository;

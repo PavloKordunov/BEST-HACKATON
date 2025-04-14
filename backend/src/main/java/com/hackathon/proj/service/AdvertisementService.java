@@ -1,7 +1,6 @@
 package com.hackathon.proj.service;
 
 import com.hackathon.proj.dto.AdvertisementDto;
-import com.hackathon.proj.enums.AnimalType;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,9 +12,9 @@ public interface AdvertisementService {
 
     List<AdvertisementDto> getAll(Integer page, Integer amount);
 
-    List<AdvertisementDto> getBySheltersId(UUID id);
+    List<AdvertisementDto> getByShelterId(UUID id);
 
     UUID updateAdvertisement(AdvertisementDto dto);
 
-    List<AdvertisementDto> findAdvertisements(AnimalType animalType, Double minAge, Double maxAge, String healthStatus);
+    List<AdvertisementDto> findAdvertisements(String animalType, Double minAge, Double maxAge, String healthStatus);
 }

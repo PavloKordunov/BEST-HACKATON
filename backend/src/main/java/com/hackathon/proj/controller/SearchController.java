@@ -23,7 +23,7 @@ public class SearchController {
     private final AdvertisementService advertisementService;
 
     @GetMapping("/advertisement")
-    public ApiResponse<List<AdvertisementDto>> findAdvertisements(@RequestParam(defaultValue = "0") AnimalType animalType,
+    public ApiResponse<List<AdvertisementDto>> findAdvertisements(@RequestParam(defaultValue = "0") String animalType,
                                              @RequestParam(defaultValue = "0.0") Double minAge,
                                              @RequestParam(defaultValue = "100.0") Double maxAge,
                                              @RequestParam String healthStatus) {

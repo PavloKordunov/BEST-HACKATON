@@ -2,6 +2,7 @@ package com.hackathon.proj.handler;
 
 import com.hackathon.proj.dto.ApiResponse;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -14,6 +15,7 @@ import java.nio.file.AccessDeniedException;
 import java.sql.SQLException;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
@@ -25,6 +27,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = SQLException.class)
     public ApiResponse<?> handleSqlDb(RuntimeException ex) {
+        log.error(ex.getMessage());
         return new ApiResponse<>(false, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
     }
 //
